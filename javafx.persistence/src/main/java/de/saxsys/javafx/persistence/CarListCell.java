@@ -12,8 +12,10 @@ public class CarListCell extends ListCell<Car> {
 		if (empty) {
 			setGraphic(null);
 		} else {
-			final Label lblModel = new Label(car.getModel());
-			final Label lblManufacturer = new Label(car.getManufacturer());
+			final Label lblModel = new Label();
+			lblModel.textProperty().bind(car.modelProperty());
+			final Label lblManufacturer = new Label();
+			lblManufacturer.textProperty().bind(car.manufacturerProperty());
 			final VBox container = new VBox(lblModel, lblManufacturer);
 			setGraphic(container);
 		}
