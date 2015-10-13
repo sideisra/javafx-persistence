@@ -7,18 +7,18 @@ import javafx.collections.ObservableList;
 
 public class CarList {
 
-	ListProperty<Car> cars = new SimpleListProperty<>(FXCollections.observableArrayList());
+ ListProperty<Car> cars = new SimpleListProperty<>(FXCollections.observableArrayList());
 
-	public ListProperty<Car> carsProperty() {
-		return this.cars;
-	}
+ public ListProperty<Car> carsProperty() {
+  return this.cars;
+ }
 
-	public ObservableList<Car> getCars() {
-		return cars.get();
-	}
+ public ObservableList<Car> getCars() {
+  return cars.get();
+ }
 
-	public void setCars(final ObservableList<Car> cars) {
-		this.cars.set(cars);
-	}
+ public void setCars(final ObservableList<Car> cars) {
+  this.cars.set(cars);
+ }
 
 }
