@@ -31,7 +31,7 @@ public class CarView {
   CAR_MODELS_2_MANUFACTURER.put("Model S", "Tesla");
  }
 
- final ObjectProperty<CarList> cars = new SimpleObjectProperty<>(new CarList());
+ private final ObjectProperty<CarList> cars = new SimpleObjectProperty<>(new CarList());
 
  @FXML
  private ListView<Car> lvCars;
@@ -48,7 +48,7 @@ public class CarView {
  }
 
  @FXML
- void addCar(final ActionEvent event) {
+ public void addCar(final ActionEvent event) {
   final Car newCar = new Car();
   final String model = new LinkedList<>(CAR_MODELS_2_MANUFACTURER.keySet())
     .get(RAND.nextInt(CAR_MODELS_2_MANUFACTURER.size()));
@@ -58,14 +58,14 @@ public class CarView {
  }
 
  @FXML
- void removeCar(final ActionEvent event) {
+ public void removeCar(final ActionEvent event) {
   if (lvCars.getItems().size() > 0) {
    lvCars.getItems().remove(0);
   }
  }
 
  @FXML
- void loadCars(final ActionEvent event) {
+ public void loadCars(final ActionEvent event) {
   try {
    final Unmarshaller unmarshaller = JAXBContext.newInstance(CarList.class).createUnmarshaller();
    cars.set((CarList) unmarshaller.unmarshal(new File("cars.xml")));
@@ -75,7 +75,7 @@ public class CarView {
  }
 
  @FXML
- void saveCars(final ActionEvent event) {
+ public void saveCars(final ActionEvent event) {
   try {
    final Marshaller marshaller = JAXBContext.newInstance(CarList.class).createMarshaller();
    marshaller.marshal(cars.get(), new File("cars.xml"));
