@@ -1,25 +1,41 @@
 package de.saxsys.javafx.persistence;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-@XmlAccessorType(XmlAccessType.PROPERTY)
-@XmlRootElement(name = "car")
+@Entity
+@Access(AccessType.FIELD)
 public class Car {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Transient
 	private final StringProperty manufacturer = new SimpleStringProperty();
+	@Transient
 	private final StringProperty model = new SimpleStringProperty();
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(final Long id) {
+		this.id = id;
+	}
 
 	public final StringProperty manufacturerProperty() {
 		return this.manufacturer;
 	}
 
-	@XmlAttribute
+	@Access(AccessType.PROPERTY)
 	public final String getManufacturer() {
 		return this.manufacturerProperty().get();
 	}
@@ -32,7 +48,7 @@ public class Car {
 		return this.model;
 	}
 
-	@XmlAttribute
+	@Access(AccessType.PROPERTY)
 	public final String getModel() {
 		return this.modelProperty().get();
 	}
@@ -40,5 +56,4 @@ public class Car {
 	public final void setModel(final String model) {
 		this.modelProperty().set(model);
 	}
-
 }

@@ -1,18 +1,11 @@
 package de.saxsys.javafx.persistence;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Random;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -31,7 +24,9 @@ public class CarView {
 		CAR_MODELS_2_MANUFACTURER.put("Model S", "Tesla");
 	}
 
-	final ObjectProperty<CarList> cars = new SimpleObjectProperty<>(new CarList());
+	private final CarList cars = new CarList();
+
+	private final CarDb carDb = new CarDb();
 
 	@FXML
 	private ListView<Car> lvCars;
@@ -39,10 +34,16 @@ public class CarView {
 	@FXML
 	public void initialize() {
 		lvCars.setCellFactory(param -> new CarListCell());
-		lvCars.itemsProperty().bind(cars.get().carsProperty());
-		cars.addListener((obs, oldVal, newVal) -> {
-			if (newVal != null) {
-				lvCars.itemsProperty().bind(cars.get().carsProperty());
+		lvCars.itemsProperty().bind(cars.carsProperty());
+		cars.getCars().setAll(carDb.readCars());
+		cars.getCars().addListener((ListChangeListener<Car>) c -> {
+			while (c.next()) {
+				if (c.wasAdded()) {
+					c.getAddedSubList().stream().forEach(carDb::saveCar);
+				}
+				if (c.wasRemoved()) {
+					c.getRemoved().stream().forEach(carDb::deleteCar);
+				}
 			}
 		});
 	}
@@ -61,26 +62,6 @@ public class CarView {
 	void removeCar(final ActionEvent event) {
 		if (lvCars.getItems().size() > 0) {
 			lvCars.getItems().remove(0);
-		}
-	}
-
-	@FXML
-	void loadCars(final ActionEvent event) {
-		try {
-			final Unmarshaller unmarshaller = JAXBContext.newInstance(CarList.class).createUnmarshaller();
-			cars.set((CarList) unmarshaller.unmarshal(new File("cars.xml")));
-		} catch (final JAXBException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@FXML
-	void saveCars(final ActionEvent event) {
-		try {
-			final Marshaller marshaller = JAXBContext.newInstance(CarList.class).createMarshaller();
-			marshaller.marshal(cars.get(), new File("cars.xml"));
-		} catch (final JAXBException e) {
-			e.printStackTrace();
 		}
 	}
 }

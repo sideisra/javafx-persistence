@@ -14,13 +14,10 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Button fx:id="btnAdd" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addCar" text="+" />
             <Button fx:id="btnRemove" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#removeCar" text="-" GridPane.columnIndex="1" />
-            <Button fx:id="btnSave" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveCars" text="Save" GridPane.rowIndex="1" />
-            <Button fx:id="btnLoad" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loadCars" text="Load" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <HBox VBox.vgrow="NEVER" />
