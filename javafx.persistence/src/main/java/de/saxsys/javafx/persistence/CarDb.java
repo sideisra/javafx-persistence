@@ -9,11 +9,7 @@ import javax.persistence.Query;
 
 public class CarDb {
  private static final String PERSISTENCE_UNIT_NAME = "cars";
- private static EntityManagerFactory factory;
-
- public CarDb() {
-  factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
- }
+ private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 
  public List<Car> readCars() {
   final EntityManager em = factory.createEntityManager();

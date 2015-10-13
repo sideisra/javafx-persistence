@@ -49,7 +49,7 @@ public class CarView {
  }
 
  @FXML
- void addCar(final ActionEvent event) {
+ public void addCar(final ActionEvent event) {
   final Car newCar = new Car();
   final String model = new LinkedList<>(CAR_MODELS_2_MANUFACTURER.keySet())
     .get(RAND.nextInt(CAR_MODELS_2_MANUFACTURER.size()));
@@ -59,7 +59,7 @@ public class CarView {
  }
 
  @FXML
- void removeCar(final ActionEvent event) {
+ public void removeCar(final ActionEvent event) {
   if (lvCars.getItems().size() > 0) {
    lvCars.getItems().remove(0);
   }
