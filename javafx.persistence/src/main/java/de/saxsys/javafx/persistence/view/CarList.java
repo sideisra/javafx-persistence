@@ -1,5 +1,6 @@
-package de.saxsys.javafx.persistence;
+package de.saxsys.javafx.persistence.view;
 
+import de.saxsys.javafx.persistence.model.Car;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;

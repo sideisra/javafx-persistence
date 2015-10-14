@@ -1,4 +1,4 @@
-package de.saxsys.javafx.persistence;
+package de.saxsys.javafx.persistence.database;
 
 import java.util.ArrayList;
 import java.util.List;

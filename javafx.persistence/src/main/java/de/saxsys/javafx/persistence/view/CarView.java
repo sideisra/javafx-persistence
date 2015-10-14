@@ -1,10 +1,12 @@
-package de.saxsys.javafx.persistence;
+package de.saxsys.javafx.persistence.view;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Random;
 
+import de.saxsys.javafx.persistence.database.CarDb;
+import de.saxsys.javafx.persistence.model.Car;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

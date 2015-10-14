@@ -1,4 +1,4 @@
-package de.saxsys.javafx.persistence;
+package de.saxsys.javafx.persistence.model;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

@@ -1,4 +1,4 @@
-package de.saxsys.javafx.persistence;
+package de.saxsys.javafx.persistence.database;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;

@@ -1,5 +1,6 @@
-package de.saxsys.javafx.persistence;
+package de.saxsys.javafx.persistence.view;
 
+import de.saxsys.javafx.persistence.model.Car;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.VBox;

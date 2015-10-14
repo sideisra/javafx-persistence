@@ -1,4 +1,4 @@
-package de.saxsys.javafx.persistence;
+package de.saxsys.javafx.persistence.database;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,8 @@ import javax.persistence.Query;
 
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
+
+import de.saxsys.javafx.persistence.model.Car;
 
 public class CarDb {
 	private static final String PERSISTENCE_UNIT_NAME = "cars";
