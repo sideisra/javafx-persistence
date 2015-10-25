@@ -2,10 +2,13 @@ package de.saxsys.javafx.persistence;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import javafx.collections.ListChangeListener;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -35,17 +38,37 @@ public class CarView {
  public void initialize() {
   lvCars.setCellFactory(param -> new CarListCell());
   lvCars.itemsProperty().bind(cars.carsProperty());
-  cars.getCars().setAll(carDb.readCars());
-  cars.getCars().addListener((ListChangeListener<Car>) c -> {
-   while (c.next()) {
-    if (c.wasAdded()) {
-     c.getAddedSubList().stream().forEach(carDb::saveCar);
-    }
-    if (c.wasRemoved()) {
-     c.getRemoved().stream().forEach(carDb::deleteCar);
-    }
+  loadCarsAsnyc();
+ }
+
+ private void loadCarsAsnyc() {
+  final Service<List<Car>> serv = new Service<List<Car>>() {
+
+   @Override
+   protected Task<List<Car>> createTask() {
+    return new Task<List<Car>>() {
+
+     @Override
+     protected List<Car> call() throws Exception {
+      return carDb.readCars();
+     }
+    };
    }
+  };
+  serv.setOnSucceeded(event -> {
+   cars.getCars().setAll(serv.getValue());
+   cars.getCars().addListener((ListChangeListener<Car>) c -> {
+    while (c.next()) {
+     if (c.wasAdded()) {
+      c.getAddedSubList().stream().forEach(carDb::saveCar);
+     }
+     if (c.wasRemoved()) {
+      c.getRemoved().stream().forEach(carDb::deleteCar);
+     }
+    }
+   });
   });
+  serv.start();
  }
 
  @FXML
