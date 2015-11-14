@@ -63,17 +63,17 @@ public class Manufacturer {
  @Transient
  public ObservableList<Car> getCarsObservable() {
   if (observableCars == null) {
-   observableCars = FXCollections.observableArrayList(cars);
+   observableCars = FXCollections.observableList(cars);
   }
   return observableCars;
  }
 
  @OneToMany(orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
- public List<Car> getCars() {
+ private List<Car> getCars() {
   return cars;
  }
 
- public void setCars(final List<Car> cars) {
+ private void setCars(final List<Car> cars) {
   this.cars = cars;
  }
 }

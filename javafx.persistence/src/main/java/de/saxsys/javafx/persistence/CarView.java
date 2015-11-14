@@ -81,7 +81,7 @@ public class CarView {
   if (newCarName != null && !newCarName.isEmpty()) {
    final Manufacturer selectedManufacturer = lvManufacturer.getSelectionModel().getSelectedItem();
    if (selectedManufacturer != null) {
-    selectedManufacturer.getCars().add(new Car(newCarName));
+    selectedManufacturer.getCarsObservable().add(new Car(newCarName));
     carDb.saveManufacturer(selectedManufacturer);
    }
   }
@@ -92,7 +92,7 @@ public class CarView {
   final Manufacturer selectedManufacturer = lvManufacturer.getSelectionModel().getSelectedItem();
   final Car selectedCar = lvCars.getSelectionModel().getSelectedItem();
   if (selectedManufacturer != null && selectedCar != null) {
-   selectedManufacturer.getCars().remove(selectedCar);
+   selectedManufacturer.getCarsObservable().remove(selectedCar);
    carDb.saveManufacturer(selectedManufacturer);
   }
  }
