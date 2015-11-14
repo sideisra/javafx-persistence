@@ -19,6 +19,7 @@ public class Main extends Application {
  }
 
  public static void main(final String[] args) {
+  System.setProperty("derby.stream.error.file", "target/derby.log");
   launch(args);
  }
 }

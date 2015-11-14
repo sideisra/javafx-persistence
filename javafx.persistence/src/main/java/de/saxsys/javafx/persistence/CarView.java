@@ -36,6 +36,8 @@ public class CarView {
  @FXML
  private TextField txtNewCarName;
 
+ private final CarDb carDb = new CarDb();
+
  private final ListProperty<Manufacturer> manufacturers = new SimpleListProperty<>(FXCollections.observableArrayList());
 
  @FXML
@@ -68,8 +70,9 @@ public class CarView {
   lvManufacturer.setItems(manufacturers);
   lvManufacturer.getSelectionModel().selectedItemProperty()
     .addListener((ChangeListener<Manufacturer>) (observable, oldValue, newValue) -> {
-     lvCars.setItems(newValue.getCars());
+     lvCars.setItems(newValue.getCarsObservable());
     });
+  manufacturers.addAll(carDb.readManufacturer());
  }
 
  @FXML
@@ -79,6 +82,7 @@ public class CarView {
    final Manufacturer selectedManufacturer = lvManufacturer.getSelectionModel().getSelectedItem();
    if (selectedManufacturer != null) {
     selectedManufacturer.getCars().add(new Car(newCarName));
+    carDb.saveManufacturer(selectedManufacturer);
    }
   }
  }
@@ -89,6 +93,7 @@ public class CarView {
   final Car selectedCar = lvCars.getSelectionModel().getSelectedItem();
   if (selectedManufacturer != null && selectedCar != null) {
    selectedManufacturer.getCars().remove(selectedCar);
+   carDb.saveManufacturer(selectedManufacturer);
   }
  }
 
@@ -96,7 +101,9 @@ public class CarView {
  void addManufacturer(final ActionEvent event) {
   final String newManufacturerName = txtNewManufacturerName.getText();
   if (newManufacturerName != null && !newManufacturerName.isEmpty()) {
-   manufacturers.add(new Manufacturer(newManufacturerName));
+   final Manufacturer newManufacturer = new Manufacturer(newManufacturerName);
+   manufacturers.add(newManufacturer);
+   carDb.saveManufacturer(newManufacturer);
   }
  }
 
@@ -105,6 +112,7 @@ public class CarView {
   final Manufacturer selectedItem = lvManufacturer.getSelectionModel().getSelectedItem();
   if (selectedItem != null) {
    manufacturers.remove(selectedItem);
+   carDb.deleteManufacturer(selectedItem);
   }
  }
 
