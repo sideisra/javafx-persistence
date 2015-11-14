@@ -6,6 +6,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +27,9 @@ public class Manufacturer {
  @Transient
  private final StringProperty name = new SimpleStringProperty();
  @Transient
- private ObservableList<Car> cars = FXCollections.observableArrayList();
+ private List<Car> cars;
+ @Transient
+ private ObservableList<Car> observableCars;
 
  public Manufacturer() {
  }
@@ -59,15 +62,18 @@ public class Manufacturer {
 
  @Transient
  public ObservableList<Car> getCarsObservable() {
-  return cars;
+  if (observableCars == null) {
+   observableCars = FXCollections.observableArrayList(cars);
+  }
+  return observableCars;
  }
 
- @OneToMany(orphanRemoval = true, cascade = CascadeType.PERSIST)
+ @OneToMany(orphanRemoval = true, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
  public List<Car> getCars() {
   return cars;
  }
 
  public void setCars(final List<Car> cars) {
-  this.cars = FXCollections.observableArrayList(cars);
+  this.cars = cars;
  }
 }
