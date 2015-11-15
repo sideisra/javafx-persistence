@@ -62,9 +62,6 @@ public class Manufacturer {
 
  @Transient
  public ObservableList<Car> getCarsObservable() {
-  if (observableCars == null) {
-   observableCars = FXCollections.observableList(cars);
-  }
   return observableCars;
  }
 
@@ -75,5 +72,6 @@ public class Manufacturer {
 
  private void setCars(final List<Car> cars) {
   this.cars = cars;
+  this.observableCars = FXCollections.observableList(cars);
  }
 }
