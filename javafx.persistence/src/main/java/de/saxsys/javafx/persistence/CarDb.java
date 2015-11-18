@@ -12,23 +12,22 @@ public class CarDb {
  private static final String PERSISTENCE_UNIT_NAME = "cars";
  private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 
+ private final EntityManager em = factory.createEntityManager();
+
  public List<Manufacturer> readManufacturer() {
-  final EntityManager em = factory.createEntityManager();
-  try {
-   final Query q = em.createQuery("select m from Manufacturer m");
-   final List<Manufacturer> manufacturer = q.getResultList();
-   return manufacturer;
-  } finally {
-   em.close();
-  }
+  final Query q = em.createQuery("select m from Manufacturer m");
+  final List<Manufacturer> manufacturer = q.getResultList();
+  return manufacturer;
  }
 
  public void saveManufacturer(final Manufacturer newManufacturer) {
-  if (newManufacturer.getId() == null) {
-   inTransaction(em -> em.persist(newManufacturer));
-  } else {
-   inTransaction(em -> em.merge(newManufacturer));
-  }
+  inTransaction(em -> {
+   if (em.contains(newManufacturer)) {
+    em.merge(newManufacturer);
+   } else {
+    em.persist(newManufacturer);
+   }
+  });
  }
 
  public void deleteManufacturer(final Manufacturer manufacturerToDelete) {
@@ -36,13 +35,8 @@ public class CarDb {
  }
 
  private void inTransaction(final Consumer<EntityManager> command) {
-  final EntityManager em = factory.createEntityManager();
-  try {
-   em.getTransaction().begin();
-   command.accept(em);
-   em.getTransaction().commit();
-  } finally {
-   em.close();
-  }
+  em.getTransaction().begin();
+  command.accept(em);
+  em.getTransaction().commit();
  }
 }
