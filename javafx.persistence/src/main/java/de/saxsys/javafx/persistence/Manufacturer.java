@@ -62,7 +62,7 @@ public class Manufacturer {
  }
 
  @Transient
- public ListProperty<Car> getCarsObservable() {
+ public ListProperty<Car> carsProperty() {
   return observableCars;
  }
 
