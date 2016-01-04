@@ -24,7 +24,7 @@
             <HBox VBox.vgrow="NEVER">
                <children>
                   <Button fx:id="btnAddCar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addCar" text="+" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="btnRemove" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#removeCar" text="-" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="btnRemoveCar" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#removeCar" text="-" HBox.hgrow="ALWAYS" />
                </children></HBox>
          </children>
       </VBox>
