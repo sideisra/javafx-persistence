@@ -14,4 +14,6 @@ Serves as example for three blog posts:
 * Part 3
  * URL: http://blog.so-geht-software.de/2015/11/javafx-persistence-teil-3-jpa-lazy-loading/
  * Examples in Branch "jpa-lazy-loading"
-
+* Part 4
+ * URL: http://blog.so-geht-software.de/2016/01/javafx-persistence-teil-4-async-loading/
+ * Examples in Branch "async-loading"
